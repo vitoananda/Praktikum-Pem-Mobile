@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'books_data.dart';
 import 'list_buku.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class DetailBuku extends StatefulWidget {
   final BooksData books;
+
   const DetailBuku({Key? key,required this.books}) : super(key: key);
 
   @override
@@ -11,13 +14,28 @@ class DetailBuku extends StatefulWidget {
 }
 
 class _DetailBukuState extends State<DetailBuku> {
+  bool isFavorite = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.books.title,style: TextStyle(fontWeight: FontWeight.bold,color: Colors.blue),),
-        backgroundColor: Colors.transparent,
+        backgroundColor: (isFavorite) ? Colors.yellowAccent : Colors.transparent,
         elevation: 0,
+        actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {
+                isFavorite = !isFavorite;
+              });
+            },
+            icon: (isFavorite)
+                ? Icon(Icons.favorite)
+                : Icon(Icons.favorite_border),
+          ),
+
+        ],
         centerTitle: true,
         iconTheme: IconThemeData(
           color: Colors.blue, //change your color here
@@ -54,13 +72,21 @@ class _DetailBukuState extends State<DetailBuku> {
                           ),
                         ),
                       ),
-                      Text("Category : ${widget.books.categories[0]}")
+                      Text("Category : ${widget.books.categories[0]}"),
+                     Padding(
+                       padding: const EdgeInsets.only(top:8),
+                       child: ElevatedButton(onPressed: (){
+                         _launchURL(widget.books.previewLink);
+                       }, child: Text('Preview')),
+                     )
 
                     ],
 
 
                   ),
+
           ]
+
                 ),
               )
 
@@ -85,4 +111,8 @@ Widget textSedang(String text) {
     textAlign: TextAlign.center,
 
   );
+}
+
+void _launchURL(_url) async{
+  if(!await launch(_url)) throw 'Could Not Launch $_url';
 }

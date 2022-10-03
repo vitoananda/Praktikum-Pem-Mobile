@@ -31,67 +31,41 @@ class _ListBukuState extends State<ListBuku> {
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (context) => DetailBuku(books: books)));
             },
-            child: Padding(
-              padding: const EdgeInsets.all(1.0),
               child: Padding(
-                padding: const EdgeInsets.all(3.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 300,
-                  child: Padding(
-                    padding: const EdgeInsets.all(3.0),
-                    child: Card(
-                        margin: EdgeInsets.all(3.0),
-                        elevation: 0,
-                        child: Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(books.imageLinks),
-                                fit: BoxFit.fill,
-                                alignment: Alignment.topCenter,
-                              ),
-                            ),
-                            child: Container(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 5),
-                                    child: Text(books.title,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 20,shadows: <Shadow>[
-                                      Shadow(
-                                        offset: Offset(2.0, 2.0),
-                                        blurRadius: 2.0,
-                                        color: Color.fromARGB(255, 0, 0, 0),
-                                      ),
-                                    ],
-                                    ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Text(books.authors[0],style: TextStyle(color: Colors.white70,fontSize: 15,shadows: <Shadow>[
-                                      Shadow(
-                                        offset: Offset(1.0, 1.0),
-                                        blurRadius: 2.0,
-                                        color: Color.fromARGB(255, 0, 0, 0),
-                                      ),
-                                    ],
-                                    ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                        )
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                child: Container(
 
-
+                  child: Card(
+                    elevation: 5,
+                    margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+                    shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                            color: Colors.white24
+                        ),
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.network(books.imageLinks, width: 100, height: 135,),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(books.title, textAlign:TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold)),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(books.authors[0]),
+                        Text(books.publishedDate,  style: TextStyle(fontSize: 10)),
+                      ],
                     ),
                   ),
                 ),
-              ),
-            ),
-
+              )
           );
         },
         itemCount: booksData.length,
